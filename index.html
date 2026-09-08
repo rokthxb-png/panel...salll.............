@@ -700,6 +700,87 @@
     .wrap{padding:0 32px;}
     section{padding:84px 0;}
   }
+
+  /* ---------- MULTI-PAGE FLOW ---------- */
+  .page{
+    animation:page-in .45s ease;
+  }
+  .page[hidden]{display:none !important;}
+  @keyframes page-in{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .page-topbar{
+    padding:16px 0 0;
+  }
+  .back-link{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:var(--ff-mono); font-size:12px; color:var(--muted);
+    padding:8px 4px;
+  }
+  .back-link:hover{color:var(--green);}
+  .step-pills{
+    display:flex; align-items:center; gap:6px;
+    margin-top:14px;
+  }
+  .step-pill{
+    height:4px; flex:1; border-radius:4px;
+    background:rgba(255,255,255,0.08);
+    overflow:hidden;
+  }
+  .step-pill i{
+    display:block; height:100%; width:0%;
+    background:linear-gradient(90deg, var(--green), var(--amber));
+    transition:width .4s ease;
+  }
+  .step-pill.done i{width:100%;}
+  .step-pill.active i{width:100%;}
+
+  /* ---------- CONGRATS PAGE ---------- */
+  .congrats-wrap{
+    text-align:center;
+    padding-top:20px;
+  }
+  .congrats-icon{
+    width:84px; height:84px; margin:0 auto 22px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:radial-gradient(circle, rgba(52,211,153,0.18), transparent 70%);
+    border:1px solid var(--border-strong);
+    position:relative;
+    animation:congrats-pop .5s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes congrats-pop{
+    0%{transform:scale(0.4); opacity:0;}
+    100%{transform:scale(1); opacity:1;}
+  }
+  .congrats-icon svg{width:38px; height:38px;}
+  .congrats-title{
+    font-family:var(--ff-display); font-weight:700;
+    font-size:clamp(24px,7vw,30px);
+  }
+  .congrats-title .accent{
+    background:linear-gradient(100deg, var(--green) 10%, var(--amber) 90%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .congrats-sub{
+    color:var(--muted); font-size:15px; margin-top:12px;
+    max-width:40ch; margin-left:auto; margin-right:auto;
+  }
+  .order-summary{
+    text-align:left; margin-top:26px; padding:20px;
+  }
+  .order-row{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:10px 0; font-size:14px;
+    border-bottom:1px dashed var(--border);
+  }
+  .order-row:last-child{border-bottom:none;}
+  .order-row .label{color:var(--muted); font-family:var(--ff-mono); font-size:11.5px; letter-spacing:0.05em;}
+  .order-row .value{font-weight:700;}
+  .congrats-actions{
+    margin-top:26px; display:flex; flex-direction:column; gap:12px; align-items:center;
+  }
 </style>
 </head>
 <body>
@@ -732,6 +813,8 @@
 
 <main>
 
+<section class="page" id="page-home">
+
   <!-- ================= HERO ================= -->
   <section class="hero">
     <div class="wrap">
@@ -752,7 +835,7 @@
         <div><b>24/7</b>WhatsApp support</div>
       </div>
       <div class="hero-cta">
-        <button class="btn btn-primary pulse" id="heroBuyBtn">Buy Now — ₹999</button>
+        <button class="btn btn-primary pulse" id="heroBuyBtn">Buy Now — ₹1,000</button>
         <a href="#product" class="btn btn-secondary" style="max-width:340px;">See product details</a>
       </div>
     </div>
@@ -774,7 +857,7 @@
         </div>
         <div class="product-media">
           <!-- PRODUCT IMAGE PLACEHOLDER: replace src with your artwork -->
-          <img src="https://i.ibb.co/8n3HHnvK/Whats-App-Image-2026-07-06-at-08-16-25.jpg" alt="Hunter.apk product artwork" onerror="this.style.opacity='0'">
+          <img src="YOUR_APK_IMAGE_URL_HERE" alt="Hunter.apk product artwork" onerror="this.style.opacity='0'">
         </div>
         <div class="product-name">Hunter.apk</div>
         <div class="product-filetype">FILE TYPE — APK &nbsp;·&nbsp; DELIVERY — WhatsApp</div>
@@ -783,7 +866,7 @@
         <div class="price-block">
           <div>
             <div class="price-old">₹5,000</div>
-            <div class="price-new">₹999</div>
+            <div class="price-new">₹1,000</div>
           </div>
           <div class="discount-badge">80% OFF</div>
         </div>
@@ -821,7 +904,12 @@
   <!-- ================= PURCHASE FORM ================= -->
   <section id="purchase">
     <div class="wrap">
-      <span class="eyebrow-mono">Step 1</span>
+      <div class="step-pills" aria-hidden="true" style="margin-bottom:18px;">
+        <div class="step-pill active"><i></i></div>
+        <div class="step-pill"><i></i></div>
+        <div class="step-pill"><i></i></div>
+      </div>
+      <span class="eyebrow-mono">Step 1 of 3</span>
       <h2 class="section-title">Purchase Request</h2>
       <p class="section-sub">Tell us who you are and we'll pick it up on WhatsApp right away.</p>
 
@@ -843,63 +931,6 @@
         <button type="submit" class="btn btn-primary" style="max-width:none;">Submit Request</button>
         <p class="form-note">Submitting opens WhatsApp with your details pre-filled — nothing is charged here.</p>
       </form>
-    </div>
-  </section>
-
-  <!-- ================= QR PAYMENT ================= -->
-  <section id="pay">
-    <div class="wrap">
-      <span class="eyebrow-mono">Step 2</span>
-      <h2 class="section-title">Pay via QR Code</h2>
-
-      <div class="glass reveal" style="margin-top:22px; padding:26px;">
-        <div class="qr-box">
-          <!-- QR CODE PLACEHOLDER: replace src with your payment QR image -->
-          <img src="YOUR_QR_CODE_IMAGE_URL_HERE" alt="Payment QR code" onerror="this.style.opacity='0.15'">
-        </div>
-        <div class="qr-amount">
-          <div class="amt">Pay ₹999</div>
-        </div>
-        <div class="qr-steps">
-          <div class="qr-step"><span class="num">1</span>Scan the QR code and complete the payment.</div>
-          <div class="qr-step"><span class="num">2</span>After payment, take a screenshot of your successful payment and submit it below.</div>
-          <div class="qr-step"><span class="num">3</span>After payment verification, the product will be provided.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= UPLOAD SCREENSHOT ================= -->
-  <section id="upload">
-    <div class="wrap">
-      <span class="eyebrow-mono">Step 3</span>
-      <h2 class="section-title">Upload Payment Screenshot</h2>
-
-      <div class="glass reveal" style="margin-top:22px; padding:24px;">
-        <label class="upload-zone" id="uploadZone">
-          <input type="file" id="screenshotInput" accept="image/jpeg,image/jpg,image/png,image/webp">
-          <div class="upload-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L7 9m5-5l5 5M5 20h14" stroke="#34d399" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <div class="upload-text">Upload Payment Screenshot</div>
-          <div class="upload-hint">JPG, JPEG, PNG or WEBP</div>
-        </label>
-
-        <div class="preview-box" id="previewBox">
-          <img id="previewImg" src="" alt="Screenshot preview">
-          <div class="preview-info">
-            <div class="preview-name" id="previewName"></div>
-            <div class="preview-size" id="previewSize"></div>
-          </div>
-          <button type="button" class="preview-remove" id="previewRemove">Remove</button>
-        </div>
-
-        <p class="upload-endpoint-note" id="endpointNote">
-          This screenshot is a customer submission only — it is not automatically verified. Once you submit, we'll open WhatsApp so you can confirm your payment with our team directly.
-        </p>
-
-        <button class="btn btn-primary" id="submitPaymentBtn" style="max-width:none; margin-top:16px;">Submit Payment</button>
-      </div>
     </div>
   </section>
 
@@ -929,6 +960,123 @@
     </div>
   </section>
 
+</section>
+<!-- ============================================================
+     END PAGE 1 — HOME
+     ============================================================ -->
+
+<!-- ============================================================
+     PAGE 2 — PAYMENT
+     ============================================================ -->
+<section class="page" id="page-payment" hidden>
+  <div class="wrap page-topbar">
+    <a href="#" class="back-link" id="backToHomeFromPayment">← Back</a>
+    <div class="step-pills" aria-hidden="true">
+      <div class="step-pill done"><i></i></div>
+      <div class="step-pill active"><i></i></div>
+      <div class="step-pill"><i></i></div>
+    </div>
+  </div>
+
+  <!-- ================= QR PAYMENT ================= -->
+  <section id="pay">
+    <div class="wrap">
+      <span class="eyebrow-mono">Step 2 of 3</span>
+      <h2 class="section-title">Pay via QR Code</h2>
+
+      <div class="glass reveal" style="margin-top:22px; padding:26px;">
+        <div class="qr-box">
+          <!-- QR CODE PLACEHOLDER: replace src with your payment QR image -->
+          <img src="YOUR_QR_CODE_IMAGE_URL_HERE" alt="Payment QR code" onerror="this.style.opacity='0.15'">
+        </div>
+        <div class="qr-amount">
+          <div class="amt">Pay ₹1,000</div>
+        </div>
+        <div class="qr-steps">
+          <div class="qr-step"><span class="num">1</span>Scan the QR code and complete the payment.</div>
+          <div class="qr-step"><span class="num">2</span>After payment, take a screenshot of your successful payment and submit it below.</div>
+          <div class="qr-step"><span class="num">3</span>After payment verification, the product will be provided.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= UPLOAD SCREENSHOT ================= -->
+  <section id="upload">
+    <div class="wrap">
+      <h2 class="section-title" style="font-size:19px;">Upload Payment Screenshot</h2>
+
+      <div class="glass reveal" style="margin-top:22px; padding:24px;">
+        <label class="upload-zone" id="uploadZone">
+          <input type="file" id="screenshotInput" accept="image/jpeg,image/jpg,image/png,image/webp">
+          <div class="upload-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L7 9m5-5l5 5M5 20h14" stroke="#34d399" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="upload-text">Upload Payment Screenshot</div>
+          <div class="upload-hint">JPG, JPEG, PNG or WEBP</div>
+        </label>
+
+        <div class="preview-box" id="previewBox">
+          <img id="previewImg" src="" alt="Screenshot preview">
+          <div class="preview-info">
+            <div class="preview-name" id="previewName"></div>
+            <div class="preview-size" id="previewSize"></div>
+          </div>
+          <button type="button" class="preview-remove" id="previewRemove">Remove</button>
+        </div>
+
+        <p class="upload-endpoint-note" id="endpointNote">
+          This screenshot is a customer submission only — it is not automatically verified. Once you submit, we'll open WhatsApp so you can confirm your payment with our team directly.
+        </p>
+
+        <button class="btn btn-primary" id="submitPaymentBtn" style="max-width:none; margin-top:16px;">Submit Payment</button>
+      </div>
+    </div>
+  </section>
+</section>
+<!-- ============================================================
+     END PAGE 2 — PAYMENT
+     ============================================================ -->
+
+<!-- ============================================================
+     PAGE 3 — CONGRATULATIONS
+     ============================================================ -->
+<section class="page" id="page-congrats" hidden>
+  <div class="wrap page-topbar">
+    <div class="step-pills" aria-hidden="true">
+      <div class="step-pill done"><i></i></div>
+      <div class="step-pill done"><i></i></div>
+      <div class="step-pill active"><i></i></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap congrats-wrap">
+      <span class="eyebrow-mono" style="justify-content:center;">Step 3 of 3 — Complete</span>
+      <div class="congrats-icon">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#34d399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h1 class="congrats-title">Congratulations<span class="accent">!</span></h1>
+      <p class="congrats-sub">Your order has been received. We've opened WhatsApp so you can send us your details — our team will verify your payment and deliver your file shortly.</p>
+
+      <div class="glass order-summary reveal">
+        <div class="order-row"><span class="label">PRODUCT</span><span class="value" id="congratsProduct">Hunter.apk</span></div>
+        <div class="order-row"><span class="label">AMOUNT PAID</span><span class="value" id="congratsAmount">₹1,000</span></div>
+        <div class="order-row"><span class="label">DELIVERY</span><span class="value">WhatsApp</span></div>
+        <div class="order-row"><span class="label">STATUS</span><span class="value" style="color:var(--amber);">Pending Verification</span></div>
+      </div>
+
+      <div class="congrats-actions">
+        <button class="btn btn-primary" id="congratsSupportBtn" style="max-width:340px;">Message Us on WhatsApp</button>
+        <a href="#" class="btn btn-secondary" id="backToHomeFromCongrats" style="max-width:340px;">Back to Home</a>
+      </div>
+    </div>
+  </section>
+</section>
+<!-- ============================================================
+     END PAGE 3 — CONGRATULATIONS
+     ============================================================ -->
+
 </main>
 
 <footer>
@@ -948,8 +1096,8 @@
 
 <div class="sticky-bar" id="stickyBar">
   <div class="sticky-price">
-    <div class="old">₹5,750</div>
-    <div class="new">₹999</div>
+    <div class="old">₹5,000</div>
+    <div class="new">₹1,000</div>
   </div>
   <button class="btn btn-primary" id="stickyBuyBtn" style="flex:1;">Buy Now</button>
 </div>
@@ -965,18 +1113,31 @@
      (optionally) a backend upload endpoint.
      ============================================================ */
   const CONFIG = {
-    WHATSAPP_NUMBER: "917478935334",       // e.g. "919876543210" (country code, no + or spaces)
+    WHATSAPP_NUMBER: "YOUR_WHATSAPP_NUMBER",       // e.g. "919876543210" (country code, no + or spaces)
     APK_DOWNLOAD_URL: "YOUR_APK_DOWNLOAD_URL",      // direct link to the APK file
-    APK_IMAGE_URL: "https://i.ibb.co/8n3HHnvK/Whats-App-Image-2026-07-06-at-08-16-25.jpg",            // product / icon image
-    QR_CODE_IMAGE_URL: "https://i.ibb.co/9HT43hSQ/Whats-App-Image-2026-09-08-at-2-08-32-PM.jpg",    // payment QR code image
+    APK_IMAGE_URL: "YOUR_APK_IMAGE_URL",            // product / icon image
+    QR_CODE_IMAGE_URL: "YOUR_QR_CODE_IMAGE_URL",    // payment QR code image
     PAYMENT_UPLOAD_ENDPOINT: "YOUR_UPLOAD_ENDPOINT",// backend endpoint to receive screenshots (optional)
+    PAYMENT_PAGE_URL: "payment.html",               // the order/payment page the Download button opens
     PRODUCT_NAME: "Hunter.apk",
-    PRICE: "999"
+    PRICE: "1,000"
   };
 
   /* ---------- helper: is a config value still a placeholder? ---------- */
   function isPlaceholder(v){
     return !v || v.trim() === "" || v.indexOf("YOUR_") === 0;
+  }
+
+  /* ---------- Page navigation (Home / Payment / Congrats) ---------- */
+  const PAGE_IDS = ['page-home', 'page-payment', 'page-congrats'];
+  function goToPage(pageId){
+    PAGE_IDS.forEach(function(id){
+      const el = document.getElementById(id);
+      if (el) el.hidden = (id !== pageId);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const bar = document.getElementById('stickyBar');
+    if (bar && pageId !== 'page-home') bar.classList.remove('show');
   }
 
   /* ---------- Meta Pixel event helper ---------- */
@@ -1001,7 +1162,7 @@
   }
 
   function handleBuyClick(){
-    trackPixel('InitiateCheckout', { content_name: CONFIG.PRODUCT_NAME, currency: 'INR', value: 999 });
+    trackPixel('InitiateCheckout', { content_name: CONFIG.PRODUCT_NAME, currency: 'INR', value: 1000 });
     openWhatsApp(buyMessage());
   }
 
@@ -1013,13 +1174,8 @@
   const downloadNote = document.getElementById('downloadNote');
   downloadBtn.addEventListener('click', function(){
     trackPixel('ViewContent', { content_name: CONFIG.PRODUCT_NAME });
-    if (isPlaceholder(CONFIG.APK_DOWNLOAD_URL)){
-      downloadNote.style.color = "var(--amber)";
-      downloadNote.textContent = "Download link will be provided after payment verification.";
-      downloadNote.style.borderColor = "rgba(251,191,36,0.35)";
-      return;
-    }
-    window.open(CONFIG.APK_DOWNLOAD_URL, "_blank", "noopener");
+    // Takes the visitor straight to the in-page payment step.
+    goToPage('page-payment');
   });
 
   /* ---------- Purchase form ---------- */
@@ -1062,6 +1218,7 @@
     waMessage += "\nPlease provide the APK after payment verification.";
 
     openWhatsApp(waMessage);
+    goToPage('page-payment');
   });
 
   [nameInput, phoneInput].forEach(function(input){
@@ -1133,7 +1290,7 @@
       endpointNote.textContent = "No upload service is configured yet, so this screenshot can't be sent automatically. Please continue on WhatsApp below and attach the screenshot there — our team will verify it manually.";
     }
 
-    trackPixel('Purchase', { content_name: CONFIG.PRODUCT_NAME, currency: 'INR', value: 999 });
+    trackPixel('Purchase', { content_name: CONFIG.PRODUCT_NAME, currency: 'INR', value: 1000 });
 
     const name = nameInput.value.trim();
     const phone = phoneInput.value.trim();
@@ -1144,6 +1301,31 @@
     waMessage += "Please verify my payment and send me the " + CONFIG.PRODUCT_NAME + " file.";
 
     openWhatsApp(waMessage);
+
+    const congratsProduct = document.getElementById('congratsProduct');
+    const congratsAmount = document.getElementById('congratsAmount');
+    if (congratsProduct) congratsProduct.textContent = CONFIG.PRODUCT_NAME;
+    if (congratsAmount) congratsAmount.textContent = "\u20b9" + CONFIG.PRICE;
+
+    goToPage('page-congrats');
+  });
+
+  /* ---------- Page navigation buttons (back links, congrats actions) ---------- */
+  const backFromPayment = document.getElementById('backToHomeFromPayment');
+  if (backFromPayment) backFromPayment.addEventListener('click', function(e){
+    e.preventDefault();
+    goToPage('page-home');
+  });
+
+  const backFromCongrats = document.getElementById('backToHomeFromCongrats');
+  if (backFromCongrats) backFromCongrats.addEventListener('click', function(e){
+    e.preventDefault();
+    goToPage('page-home');
+  });
+
+  const congratsSupportBtn = document.getElementById('congratsSupportBtn');
+  if (congratsSupportBtn) congratsSupportBtn.addEventListener('click', function(){
+    openWhatsApp("Hello, I need help with my Hunter.apk purchase.");
   });
 
   /* ---------- Support button ---------- */
