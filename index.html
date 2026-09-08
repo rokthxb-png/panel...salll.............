@@ -752,7 +752,7 @@
         <div><b>24/7</b>WhatsApp support</div>
       </div>
       <div class="hero-cta">
-        <button class="btn btn-primary pulse" id="heroBuyBtn">Buy Now — ₹1,000</button>
+        <button class="btn btn-primary pulse" id="heroBuyBtn">Buy Now — ₹999</button>
         <a href="#product" class="btn btn-secondary" style="max-width:340px;">See product details</a>
       </div>
     </div>
@@ -783,7 +783,7 @@
         <div class="price-block">
           <div>
             <div class="price-old">₹5,000</div>
-            <div class="price-new">₹1,000</div>
+            <div class="price-new">₹999</div>
           </div>
           <div class="discount-badge">80% OFF</div>
         </div>
@@ -858,7 +858,7 @@
           <img src="YOUR_QR_CODE_IMAGE_URL_HERE" alt="Payment QR code" onerror="this.style.opacity='0.15'">
         </div>
         <div class="qr-amount">
-          <div class="amt">Pay ₹1,000</div>
+          <div class="amt">Pay ₹999</div>
         </div>
         <div class="qr-steps">
           <div class="qr-step"><span class="num">1</span>Scan the QR code and complete the payment.</div>
@@ -1001,7 +1001,7 @@
   }
 
   function handleBuyClick(){
-    trackPixel('InitiateCheckout', { content_name: CONFIG.PRODUCT_NAME, currency: 'INR', value: 1000 });
+    trackPixel('InitiateCheckout', { content_name: CONFIG.PRODUCT_NAME, currency: 'INR', value: 999 });
     openWhatsApp(buyMessage());
   }
 
@@ -1133,7 +1133,7 @@
       endpointNote.textContent = "No upload service is configured yet, so this screenshot can't be sent automatically. Please continue on WhatsApp below and attach the screenshot there — our team will verify it manually.";
     }
 
-    trackPixel('Purchase', { content_name: CONFIG.PRODUCT_NAME, currency: 'INR', value: 1000 });
+    trackPixel('Purchase', { content_name: CONFIG.PRODUCT_NAME, currency: 'INR', value: 999 });
 
     const name = nameInput.value.trim();
     const phone = phoneInput.value.trim();
