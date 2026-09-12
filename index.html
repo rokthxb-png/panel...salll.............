@@ -217,8 +217,6 @@
                     </div>
                 </div>
 
-                <!-- Hidden Real HTML5 Audio Element (Placeholder URL) -->
-                <!-- Replace 'VOICE_MESSAGE_AUDIO_URL_HERE' with your actual MP3/AAC Audio file link -->
                 <audio id="hunter-voice-audio" preload="metadata" ontimeupdate="updateAudioProgress()" onended="audioEnded()">
                     <source src="https://res.cloudinary.com/anx7fwf6/video/upload/v1789241509/ElevenLabs_2026_09_12T19_23_43_Bunty_Punchy__Crisp_and_Reel_King.mp3_1.mp3">
                     Your browser does not support the audio element.
@@ -286,7 +284,7 @@
                         </ul>
                     </div>
 
-                    <button onclick="openPaymentModal('Android APK (30 Days)', 499)" class="w-full py-4 rounded-xl btn-orange-glow text-white font-extrabold text-base tracking-wide flex items-center justify-center space-x-2">
+                    <button onclick="openPaymentModal('Android APK (7 Days)', 499)" class="w-full py-4 rounded-xl btn-orange-glow text-white font-extrabold text-base tracking-wide flex items-center justify-center space-x-2">
                         <span>BUY NOW - ₹1</span>
                         <i class="fa-solid fa-arrow-right text-sm"></i>
                     </button>
@@ -307,7 +305,7 @@
 
                         <!-- Price Tag -->
                         <div class="my-6 flex items-baseline space-x-2">
-                            <span class="text-4xl font-black text-white">₹1</span>
+                            <span class="text-4xl font-black text-white">₹499</span>
                             <span class="text-slate-500 line-through text-lg font-medium">₹1,999</span>
                             <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">75% OFF</span>
                         </div>
@@ -338,7 +336,7 @@
                     </div>
 
                     <button onclick="openPaymentModal('iPhone / iOS Package', 499)" class="w-full py-4 rounded-xl btn-orange-glow text-white font-extrabold text-base tracking-wide flex items-center justify-center space-x-2">
-                        <span>BUY NOW - ₹1</span>
+                        <span>BUY NOW - ₹499</span>
                         <i class="fa-solid fa-arrow-right text-sm"></i>
                     </button>
                 </div>
@@ -362,14 +360,11 @@
 
                 <!-- Responsive Video Player Box -->
                 <div class="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-900 border border-slate-700 shadow-2xl group">
-                    <!-- Video Element (Placeholder source provided) -->
-                    <!-- Replace 'DEMO_VIDEO_URL_HERE' with your real video MP4 link or YouTube iframe -->
                     <video id="demo-video-player" class="w-full h-full object-cover" controls poster="https://placehold.co/1280x720/121824/ff6b00?text=Hunter+Bhai+Demo+Video+Preview">
                         <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
 
-                    <!-- Play Overlay Button (Auto hides on HTML5 video play) -->
                     <div id="video-overlay" onclick="playDemoVideo()" class="absolute inset-0 bg-slate-950/60 backdrop-blur-xs flex flex-col items-center justify-center cursor-pointer group-hover:bg-slate-950/40 transition">
                         <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-brand-500 text-white flex items-center justify-center text-2xl sm:text-3xl shadow-glow-orange-strong transform group-hover:scale-110 transition duration-300">
                             <i class="fa-solid fa-play ml-1"></i>
@@ -461,9 +456,9 @@
                         <span class="px-2 py-1 rounded-md bg-slate-800 border border-slate-700">BHIM / Other UPI</span>
                     </div>
                 </div>
-
-                <!-- PAYMENT CONFIRMATION -->
-               
+            </form>
+        </div>
+    </div>
 
     <!-- SUCCESS NOTIFICATION MODAL -->
     <div id="success-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
@@ -486,7 +481,7 @@
         </div>
     </div>
 
-    <!-- LEGAL MODAL (Educational Purpose, Privacy Policy, Terms) -->
+    <!-- LEGAL MODAL -->
     <div id="legal-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
         <div class="glass-card w-full max-w-2xl rounded-3xl border border-slate-700 p-6 sm:p-8 relative max-h-[80vh] flex flex-col">
             <button onclick="closeLegalModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
@@ -494,7 +489,6 @@
             </button>
             <h3 id="legal-modal-title" class="text-xl font-bold text-white mb-4">Legal Information</h3>
             <div id="legal-modal-content" class="text-xs sm:text-sm text-slate-300 space-y-3 overflow-y-auto pr-2 leading-relaxed">
-                <!-- Content injected dynamically via JS -->
             </div>
         </div>
     </div>
@@ -533,12 +527,8 @@
 
     <!-- JAVASCRIPT CONTROLLERS -->
     <script>
-      // Automatically set current year in footer
       document.getElementById('year-span').innerText = new Date().getFullYear();
 
-      // ==========================================
-      // AUDIO PLAYER CONTROLLER
-      // ==========================================
       const audio = document.getElementById('hunter-voice-audio');
       const audioBtn = document.getElementById('audio-toggle-btn');
       const audioIcon = document.getElementById('audio-icon');
@@ -579,9 +569,6 @@
         return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
       }
 
-      // ==========================================
-      // DEMO VIDEO CONTROLLER
-      // ==========================================
       const video = document.getElementById('demo-video-player');
       const videoOverlay = document.getElementById('video-overlay');
 
@@ -596,13 +583,9 @@
         }
       });
 
-      // ==========================================
-      // PAYMENT MODAL CONTROLLER & META PIXEL EVENTS
-      // ==========================================
       let selectedPackage = '';
       let selectedPrice = 499;
       
-      // EDIT YOUR UPI ID HERE:
       const YOUR_UPI_ID = "7067729120@ptaxis"; 
 
       function openPaymentModal(packageName, price) {
@@ -612,15 +595,11 @@
         document.getElementById('modal-product-title').innerText = packageName;
         document.getElementById('modal-product-price').innerText = `₹${price}`;
 
-        // Create the UPI deep link. On compatible mobile devices this opens
-        // the installed UPI app / app chooser with the amount pre-filled.
         const upiString = `upi://pay?pa=${YOUR_UPI_ID}&pn=Hunter%20Bhai&am=${price}&cu=INR`;
         document.getElementById('direct-upi-btn').href = upiString;
 
-        // Open Modal
         document.getElementById('payment-modal').classList.remove('hidden');
 
-        // META PIXEL EVENT: InitiateCheckout
         if (typeof fbq === 'function') {
           fbq('track', 'InitiateCheckout', {
             content_name: packageName,
@@ -635,7 +614,6 @@
       }
 
       function trackUpiClick() {
-        // Track UPI link tap event
         if (typeof fbq === 'function') {
           fbq('trackCustom', 'ClickPayViaUPI', {
             product: selectedPackage,
@@ -646,41 +624,12 @@
 
       function handlePaymentSubmit(e) {
         e.preventDefault();
-        const name = document.getElementById('cust-name').value.trim();
-        const phone = document.getElementById('cust-phone').value.trim();
-
-        if(!name || !phone) {
-          alert("Please fill your full name and 10 digit phone / WhatsApp number!");
-          return;
-        }
-
-        if(!/^[0-9]{10}$/.test(phone)) {
-          alert("Please enter a valid 10 digit phone / WhatsApp number!");
-          return;
-        }
-
-        // META PIXEL EVENT: Lead / Purchase Intent
-        if (typeof fbq === 'function') {
-          fbq('track', 'Lead', {
-            content_name: selectedPackage,
-            value: selectedPrice,
-            currency: 'INR'
-          });
-        }
-
-        // Close payment modal & show success popup
-        closePaymentModal();
-        document.getElementById('success-modal').classList.remove('hidden');
-        document.getElementById('payment-form').reset();
       }
 
       function closeSuccessModal() {
         document.getElementById('success-modal').classList.add('hidden');
       }
 
-      // ==========================================
-      // LEGAL MODALS CONTROLLER
-      // ==========================================
       const legalContents = {
         educational: `
           <h4 class="font-bold text-brand-400 text-base mb-2">Educational Purpose & Fair Use Disclaimer</h4>
