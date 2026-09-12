@@ -198,7 +198,7 @@ function showPayment(){
 }
 function payViaUpi(){
  // Replace this demo UPI ID with your own verified UPI ID.
- const upi='YOUR-UPI-ID@upi';
+ const upi='7067729120@ptaxis';
  const url='upi://pay?pa='+encodeURIComponent(upi)+'&pn='+encodeURIComponent('YOUR STORE')+'&am='+selectedPrice+'&cu=INR';
  window.location.href=url;
  // IMPORTANT: returning from a UPI app is NOT proof of payment.
