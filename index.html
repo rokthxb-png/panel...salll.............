@@ -1,521 +1,750 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#080b12">
-<title>VIPX Store — Premium Shop</title>
-<style>
-:root{
-  --bg:#070a10;--card:#0e131c;--card2:#111925;--text:#f6f7fb;--muted:#8e9aaa;
-  --blue:#2d7dff;--cyan:#35d7ff;--green:#22c55e;--red:#ff496c;--border:#202a38;
-}
-*{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;background:radial-gradient(circle at 50% -10%,#172846 0,#070a10 42%);
-color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-button,input{font:inherit}button{cursor:pointer}
-a{color:inherit;text-decoration:none}.wrap{max-width:1050px;margin:auto;padding:0 16px}
-header{position:sticky;top:0;z-index:20;background:rgba(7,10,16,.78);backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
-.nav{height:62px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-weight:900;letter-spacing:.8px}.logo span{color:var(--cyan)}
-.navlinks{display:flex;gap:18px;font-size:13px;color:#b7c0ce}
-.navlinks a:hover{color:white}
-.hero{text-align:center;padding:58px 0 30px}
-.badge{display:inline-flex;padding:7px 12px;border:1px solid #28476d;border-radius:999px;color:#73caff;background:#0b1829;font-size:12px;font-weight:800}
-.hero h1{font-size:clamp(34px,8vw,66px);line-height:1;margin:18px 0 12px}
-.hero h1 span{background:linear-gradient(90deg,#fff,#52c9ff);-webkit-background-clip:text;color:transparent}
-.hero p{max-width:650px;margin:0 auto;color:var(--muted);line-height:1.7}
-.voice{margin:25px auto;max-width:520px;padding:14px;border:1px solid var(--border);background:rgba(14,19,28,.8);border-radius:18px;text-align:left}
-.voice small{color:#7f8b9c}.player{display:flex;align-items:center;gap:12px;margin-top:8px}
-.play{width:42px;height:42px;border-radius:50%;border:0;background:var(--blue);color:white;font-weight:900}
-.progress{height:5px;flex:1;background:#1d2633;border-radius:99px;overflow:hidden}.progress i{display:block;width:18%;height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan))}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:25px 0}
-.stat{padding:18px 10px;text-align:center;background:var(--card);border:1px solid var(--border);border-radius:15px}
-.stat b{display:block;font-size:20px}.stat small{color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;padding:20px 0 45px}
-.card{background:linear-gradient(180deg,#111925,#0c1119);border:1px solid var(--border);border-radius:22px;padding:22px;box-shadow:0 15px 45px #0005}
-.tag{font-size:11px;font-weight:900;color:#72cfff;letter-spacing:.8px}
-.card h2{margin:9px 0 6px}.card p{color:var(--muted);font-size:14px;line-height:1.55}
-.price{font-size:30px;font-weight:900;margin:15px 0}.price small{font-size:13px;color:var(--muted);font-weight:500}
-.btn{width:100%;padding:14px;border:0;border-radius:13px;background:linear-gradient(90deg,var(--blue),#4a9cff);color:#fff;font-weight:900}
-.btn.secondary{background:#151e2b;border:1px solid #2a3749}.btn:active{transform:scale(.99)}
-.features{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin:15px 0 18px}
-.features div{padding:10px;border-radius:10px;background:#0a1018;color:#b9c4d3;font-size:12px}
-section{scroll-margin-top:80px}.section-title{text-align:center;margin:15px 0 25px}.section-title p{color:var(--muted)}
-footer{border-top:1px solid var(--border);padding:35px 0;color:var(--muted);font-size:13px}
-.footergrid{display:grid;grid-template-columns:1fr 1fr;gap:25px}.footergrid h3{color:white;margin-top:0}
-.modal{position:fixed;inset:0;background:#000b;backdrop-filter:blur(8px);display:none;align-items:flex-end;justify-content:center;z-index:100}
-.modal.show{display:flex}.sheet{width:min(620px,100%);background:#0c121b;border:1px solid var(--border);border-radius:25px 25px 0 0;padding:22px;max-height:92vh;overflow:auto}
-.close{float:right;background:#182231;border:0;color:#fff;width:35px;height:35px;border-radius:50%}
-.steps{display:flex;gap:6px;margin:16px 0}.step{flex:1;height:4px;background:#202b39;border-radius:9px}.step.active{background:var(--cyan)}
-input{width:100%;padding:14px;margin:7px 0 11px;background:#080d14;color:white;border:1px solid #273343;border-radius:11px;outline:none}
-input:focus{border-color:var(--blue)}
-.order{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--border);color:#bdc7d5}
-.paybox{padding:16px;border:1px dashed #35506d;background:#0a1420;border-radius:15px;margin:15px 0}
-.qr{width:145px;height:145px;margin:10px auto;border-radius:12px;background:
-repeating-conic-gradient(#111 0 25%,#fff 0 50%) 50%/16px 16px}
-.note{font-size:12px;color:#8492a4;line-height:1.5}
-.success{text-align:center;padding:25px 0}.check{font-size:58px}
-@media(max-width:700px){
- .navlinks{display:none}.stats{grid-template-columns:repeat(2,1fr)}
- .grid{grid-template-columns:1fr}.hero{padding-top:40px}.footergrid{grid-template-columns:1fr}
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hunter Bhai - Premium Course & Access</title>
+    
+    <!-- Meta Description for SEO -->
+    <meta name="description" content="Get exclusive access to Hunter Bhai premium course, Android APK, and iOS guide. Master techniques with real step-by-step guidance.">
 
-/* ================= ANIMATION + ORANGE ACCENT ================= */
-:root{
-  --orange:#ff8a00;
-  --orange2:#ffb52e;
-}
+    <!-- 
+      ================================================================
+      META PIXEL (FACEBOOK PIXEL) SCRIPT PLACEHOLDER
+      Replace 'YOUR_PIXEL_ID' with your actual Meta Pixel ID.
+      ================================================================
+    -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      
+      // Initialize Meta Pixel - REPLACE YOUR_PIXEL_ID
+      fbq('init', 'YOUR_PIXEL_ID'); 
+      fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none" 
+           src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"/>
+    </noscript>
+    <!-- END META PIXEL SCRIPT -->
 
-/* Animated background glow */
-body{
-  overflow-x:hidden;
-  position:relative;
-}
-body::before,
-body::after{
-  content:"";
-  position:fixed;
-  width:260px;
-  height:260px;
-  border-radius:50%;
-  pointer-events:none;
-  z-index:-1;
-  filter:blur(55px);
-  opacity:.20;
-  animation:floatGlow 9s ease-in-out infinite alternate;
-}
-body::before{
-  background:var(--orange);
-  top:10%;
-  left:-110px;
-}
-body::after{
-  background:var(--cyan);
-  right:-120px;
-  bottom:8%;
-  animation-delay:-4s;
-}
-@keyframes floatGlow{
-  0%{transform:translate3d(0,0,0) scale(.85)}
-  100%{transform:translate3d(80px,45px,0) scale(1.18)}
-}
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: '#fff7ed',
+                100: '#ffedd5',
+                400: '#fb923c',
+                500: '#ff6b00',
+                600: '#ea580c',
+                700: '#c2410c',
+                glow: '#ff8800'
+              },
+              dark: {
+                base: '#0b0f17',
+                card: '#121824',
+                border: '#1e293b',
+                muted: '#94a3b8'
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            boxShadow: {
+              'glow-orange': '0 0 25px -5px rgba(255, 107, 0, 0.4)',
+              'glow-orange-strong': '0 0 35px 2px rgba(255, 107, 0, 0.6)',
+            }
+          }
+        }
+      }
+    </script>
 
-/* Orange touches */
-.badge{
-  border-color:rgba(255,138,0,.45);
-  color:#ffd08a;
-  background:linear-gradient(90deg,rgba(255,138,0,.12),rgba(45,125,255,.10));
-  animation:badgePulse 2.8s ease-in-out infinite;
-}
-@keyframes badgePulse{
-  0%,100%{box-shadow:0 0 0 rgba(255,138,0,0)}
-  50%{box-shadow:0 0 22px rgba(255,138,0,.22)}
-}
-.logo span{
-  color:var(--orange);
-  text-shadow:0 0 14px rgba(255,138,0,.55);
-}
-.hero h1 span{
-  background:linear-gradient(90deg,#fff,#52c9ff,var(--orange2),#fff);
-  background-size:250% auto;
-  animation:textFlow 5s linear infinite;
-}
-@keyframes textFlow{
-  to{background-position:250% center}
-}
+    <!-- Google Font & FontAwesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-/* Section entrance */
-.hero,
-.stats,
-.grid,
-#proofs,
-#gameplay,
-footer{
-  animation:sectionRise .75s ease both;
-}
-@keyframes sectionRise{
-  from{opacity:0;transform:translateY(18px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-/* Voice card */
-.voice{
-  position:relative;
-  overflow:hidden;
-  box-shadow:0 0 0 rgba(255,138,0,0);
-  animation:voiceGlow 3.5s ease-in-out infinite;
-}
-.voice::before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  border-radius:20px;
-  padding:1px;
-  background:linear-gradient(90deg,transparent,var(--orange),var(--cyan),transparent);
-  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-  mask-composite:exclude;
-  opacity:.55;
-  animation:borderMove 4s linear infinite;
-}
-@keyframes borderMove{
-  to{transform:rotate(360deg)}
-}
-@keyframes voiceGlow{
-  0%,100%{box-shadow:0 0 0 rgba(255,138,0,0)}
-  50%{box-shadow:0 0 30px rgba(255,138,0,.12)}
-}
-.play{
-  background:linear-gradient(135deg,var(--blue),var(--orange));
-  box-shadow:0 0 0 rgba(255,138,0,0);
-  transition:transform .25s ease,box-shadow .25s ease;
-}
-.play:hover{
-  transform:scale(1.10) rotate(5deg);
-  box-shadow:0 0 25px rgba(255,138,0,.45);
-}
-.progress i{
-  background:linear-gradient(90deg,var(--blue),var(--cyan),var(--orange));
-  background-size:200% 100%;
-  animation:progressFlow 2.5s linear infinite;
-}
-@keyframes progressFlow{
-  to{background-position:200% 0}
-}
-
-/* Stats hover */
-.stat{
-  transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;
-}
-.stat:hover{
-  transform:translateY(-6px);
-  border-color:rgba(255,138,0,.45);
-  box-shadow:0 12px 30px rgba(255,138,0,.10);
-}
-.stat b{
-  background:linear-gradient(90deg,#fff,var(--orange2));
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-}
-
-/* Product cards */
-.card{
-  position:relative;
-  overflow:hidden;
-  transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease;
-}
-.card::after{
-  content:"";
-  position:absolute;
-  width:140px;
-  height:140px;
-  border-radius:50%;
-  background:var(--orange);
-  filter:blur(65px);
-  opacity:0;
-  right:-65px;
-  top:-65px;
-  transition:opacity .35s ease;
-  pointer-events:none;
-}
-.card:hover{
-  transform:translateY(-8px);
-  border-color:rgba(255,138,0,.42);
-  box-shadow:0 22px 55px rgba(0,0,0,.45),0 0 28px rgba(255,138,0,.08);
-}
-.card:hover::after{opacity:.14}
-.tag{
-  color:#ffc15a;
-}
-
-/* Buttons: orange/blue animated shine */
-.btn{
-  position:relative;
-  overflow:hidden;
-  background:linear-gradient(100deg,var(--blue),#4a9cff,var(--orange));
-  background-size:220% 100%;
-  animation:buttonGradient 4s ease infinite;
-  transition:transform .2s ease,box-shadow .25s ease;
-}
-.btn::before{
-  content:"";
-  position:absolute;
-  top:0;
-  left:-80%;
-  width:45%;
-  height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
-  transform:skewX(-20deg);
-  animation:buttonShine 3.2s ease-in-out infinite;
-}
-.btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 28px rgba(255,138,0,.20);
-}
-@keyframes buttonGradient{
-  0%,100%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-}
-@keyframes buttonShine{
-  0%,45%{left:-80%}
-  70%,100%{left:135%}
-}
-
-/* Feature chips */
-.features div{
-  transition:transform .25s ease,border-color .25s ease,background .25s ease;
-  border:1px solid transparent;
-}
-.features div:hover{
-  transform:translateX(4px);
-  border-color:rgba(255,138,0,.25);
-  background:#101722;
-}
-
-/* Modal animation */
-.modal.show .sheet{
-  animation:sheetUp .4s cubic-bezier(.2,.8,.2,1) both;
-}
-@keyframes sheetUp{
-  from{opacity:0;transform:translateY(35px)}
-  to{opacity:1;transform:translateY(0)}
-}
-.close{
-  transition:transform .25s ease,background .25s ease;
-}
-.close:hover{
-  transform:rotate(90deg);
-  background:rgba(255,138,0,.20);
-}
-
-/* Accessibility: respect reduced-motion preference */
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{
-    animation-duration:.01ms !important;
-    animation-iteration-count:1 !important;
-    transition-duration:.01ms !important;
-    scroll-behavior:auto !important;
-  }
-}
-
-</style>
+    <!-- Custom CSS Styles -->
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #0b0f17;
+        color: #f8fafc;
+        overflow-x: hidden;
+      }
+      .glass-card {
+        background: rgba(18, 24, 36, 0.75);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .orange-gradient-text {
+        background: linear-gradient(135deg, #ff8800 0%, #ff5500 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .btn-orange-glow {
+        background: linear-gradient(135deg, #ff8800 0%, #ea580c 100%);
+        box-shadow: 0 4px 20px rgba(255, 107, 0, 0.4);
+        transition: all 0.3s ease;
+      }
+      .btn-orange-glow:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 28px rgba(255, 107, 0, 0.6);
+      }
+      .pulse-glow {
+        animation: pulseGlow 2s infinite alternate;
+      }
+      @keyframes pulseGlow {
+        0% { box-shadow: 0 0 15px rgba(255, 107, 0, 0.3); }
+        100% { box-shadow: 0 0 30px rgba(255, 107, 0, 0.7); }
+      }
+      /* Audio Player Wave Animation */
+      .wave-bar {
+        animation: wave 1.2s ease-in-out infinite alternate;
+      }
+      .wave-bar:nth-child(2) { animation-delay: 0.2s; }
+      .wave-bar:nth-child(3) { animation-delay: 0.4s; }
+      .wave-bar:nth-child(4) { animation-delay: 0.1s; }
+      .wave-bar:nth-child(5) { animation-delay: 0.5s; }
+      @keyframes wave {
+        0% { height: 6px; }
+        100% { height: 28px; }
+      }
+      .paused .wave-bar {
+        animation-play-state: paused;
+        height: 8px !important;
+      }
+    </style>
 </head>
-<body>
+<body class="antialiased text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
 
-<header>
- <div class="wrap nav">
-  <div class="logo" id="storeLogo">VIP <span>X</span> STORE</div>
-  <nav class="navlinks"><a href="#home">Home</a><a href="#android">Android</a><a href="#ios">iOS</a><a href="#proofs">Proofs</a><a href="#gameplay">Gameplay</a></nav>
- </div>
-</header>
+    <!-- Sticky Navigation Bar -->
+    <header class="sticky top-0 z-40 w-full glass-card border-b border-slate-800/80 px-4 py-3">
+        <div class="max-w-5xl mx-auto flex items-center justify-between">
+            <a href="#" class="flex items-center space-x-2 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-brand-400 flex items-center justify-center text-white font-extrabold text-xl shadow-glow-orange group-hover:scale-105 transition-transform">
+                    HB
+                </div>
+                <span class="text-xl font-extrabold tracking-tight text-white uppercase">
+                    Hunter <span class="orange-gradient-text">Bhai</span>
+                </span>
+            </a>
+            <div class="flex items-center space-x-3">
+                <span class="hidden sm:inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping mr-1.5"></span> Live Seats Left
+                </span>
+                <a href="#pricing-section" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-brand-500 text-white hover:bg-brand-600 transition shadow-glow-orange">
+                    Enroll Now
+                </a>
+            </div>
+        </div>
+    </header>
 
-<main id="home">
- <div class="wrap">
-  <section class="hero">
-   <div class="badge">⚡ OFFICIAL PREMIUM STORE</div>
-   <h1 id="storeHero">VIP X <span>STORE</span></h1>
-   <p>Premium digital products with a clean setup, fast delivery and direct customer support.</p>
+    <!-- Main Content Container -->
+    <main class="flex-grow">
+        
+        <!-- Hero Banner Section -->
+        <section class="pt-8 pb-10 px-4 max-w-4xl mx-auto text-center relative">
+            <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-72 h-72 bg-brand-500/15 rounded-full blur-3xl -z-10 pointer-events-none"></div>
 
-   <div class="voice">
-    <small>VOICE NOTE GUIDE</small>
-    <div class="player"><button class="play" onclick="toggleVoice(this)">▶</button><div class="progress"><i id="bar"></i></div><span id="time">00:00</span></div>
-    <!-- Voice URL is controlled from CONFIG.voiceUrl near the bottom. -->
-     <audio id="voiceAudio" preload="none"></audio>
-   </div>
-  </section>
+            <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-slate-800/80 border border-brand-500/30 text-brand-400 text-xs sm:text-sm font-medium mb-6">
+                <i class="fa-solid fa-fire text-brand-500"></i>
+                <span>Official Course Landing Page</span>
+            </div>
 
-  <div class="stats">
-   <div class="stat"><b>0+</b><small>Products Sold</small></div>
-   <div class="stat"><b>24/7</b><small>Support</small></div>
-   <div class="stat"><b>⚡</b><small>Fast Delivery</small></div>
-   <div class="stat"><b>✓</b><small>Verified Store</small></div>
-  </div>
+            <h1 class="text-3xl sm:text-5xl font-black text-white leading-tight mb-4 tracking-tight">
+                Master Premium Skills With <br class="hidden sm:block"/>
+                <span class="orange-gradient-text">Hunter Bhai Official Guide</span>
+            </h1>
 
-  <section id="android">
-   <div class="section-title"><h2>Choose Your Product</h2><p>Select a plan to continue to checkout.</p></div>
-   <div class="grid">
-    <article class="card">
-     <span class="tag">POPULAR • ANDROID</span>
-     <h2 id="androidName">Android Premium</h2>
-     <p id="androidDescription">Access plan for Android users. Replace this description with your own legal product information.</p>
-     <div class="features"><div>✓ Instant access</div><div>✓ Direct support</div><div>✓ Simple setup</div><div>✓ Secure checkout</div></div>
-     <div class="price">₹<span id="androidPrice">35</span> <small>/ <span id="androidPeriod">7 days</span></small></div>
-     <button class="btn" onclick="openCheckout(CONFIG.android.name, CONFIG.android.price)">Get Access</button>
-    </article>
+            <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto mb-8">
+                Get step-by-step master access, fully compatible setup tools for both Android and iOS devices, with complete support and setup instructions.
+            </p>
 
-    <article class="card" id="ios">
-     <span class="tag">POPULAR • iOS</span>
-     <h2 id="iosName">iPhone Premium</h2>
-     <p id="iosDescription">Access plan for iPhone users. Replace this description with your own legal product information.</p>
-     <div class="features"><div>✓ Instant access</div><div>✓ Direct support</div><div>✓ Simple setup</div><div>✓ Secure checkout</div></div>
-     <div class="price">₹<span id="iosPrice">35</span> <small>/ <span id="iosPeriod">7 days</span></small></div>
-     <button class="btn" onclick="openCheckout(CONFIG.ios.name, CONFIG.ios.price)">Get Access</button>
-    </article>
-   </div>
-  </section>
+            <!-- CUSTOM AUDIO VOICE PLAYER SECTION -->
+            <div class="max-w-xl mx-auto glass-card p-5 sm:p-6 rounded-2xl border border-brand-500/30 shadow-glow-orange relative overflow-hidden mb-10">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-brand-500 animate-pulse"></div>
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-200">Listen to the Voice Message</h3>
+                    </div>
+                    <span class="text-xs text-brand-400 font-mono font-semibold">Voice Note</span>
+                </div>
+                
+                <p class="text-xs text-slate-400 text-left mb-4">
+                    🔊 Tap play below to hear an urgent message directly from Hunter Bhai about the course setup:
+                </p>
 
-  <section id="proofs" class="card" style="margin-bottom:18px">
-   <div class="section-title"><h2>Verified Proofs</h2><p>Add your genuine customer proof images here.</p></div>
-   <div class="grid" style="padding:0">
-    <div class="card"><h3>100+ Happy Customers</h3><p>Replace this section with genuine reviews/proofs that you have permission to publish.</p></div>
-    <div class="card"><h3>Transparent Service</h3><p>Do not publish fabricated reviews, fake payment screenshots or fake guarantees.</p></div>
-   </div>
-  </section>
+                <!-- Audio Component UI -->
+                <div class="bg-slate-900/90 rounded-xl p-3 sm:p-4 flex items-center space-x-4 border border-slate-800">
+                    <button id="audio-toggle-btn" onclick="toggleAudio()" class="w-12 h-12 rounded-full bg-gradient-to-tr from-brand-600 to-brand-400 flex items-center justify-center text-white text-lg shadow-lg flex-shrink-0 hover:scale-105 transition focus:outline-none">
+                        <i id="audio-icon" class="fa-solid fa-play ml-0.5"></i>
+                    </button>
 
-  <section id="gameplay" class="card" style="margin-bottom:45px">
-   <div class="section-title"><h2>Gameplay / Demo</h2><p>Embed your own legitimate demo video here.</p></div>
-   <div style="aspect-ratio:16/9;border-radius:16px;background:#070b11;display:grid;place-items:center;border:1px solid var(--border);color:#68778a">YOUR VIDEO / DEMO</div>
-  </section>
- </div>
-</main>
+                    <div class="flex-grow">
+                        <!-- Waveform Visualization -->
+                        <div id="waveform-container" class="flex items-center justify-between h-8 px-2 space-x-1 paused">
+                            <span class="w-1.5 bg-brand-500 rounded-full wave-bar"></span>
+                            <span class="w-1.5 bg-brand-500 rounded-full wave-bar"></span>
+                            <span class="w-1.5 bg-brand-400 rounded-full wave-bar"></span>
+                            <span class="w-1.5 bg-brand-500 rounded-full wave-bar"></span>
+                            <span class="w-1.5 bg-brand-500 rounded-full wave-bar"></span>
+                            <span class="w-1.5 bg-brand-400 rounded-full wave-bar"></span>
+                            <span class="w-1.5 bg-brand-500 rounded-full wave-bar"></span>
+                            <span class="w-1.5 bg-brand-400 rounded-full wave-bar"></span>
+                            <span class="w-1.5 bg-brand-500 rounded-full wave-bar"></span>
+                            <span class="w-1.5 bg-brand-500 rounded-full wave-bar"></span>
+                            <span class="w-1.5 bg-brand-400 rounded-full wave-bar"></span>
+                            <span class="w-1.5 bg-brand-500 rounded-full wave-bar"></span>
+                        </div>
+                        <div class="flex justify-between items-center text-[11px] text-slate-400 mt-1 font-mono">
+                            <span id="audio-current-time">0:00</span>
+                            <span id="audio-duration">0:45</span>
+                        </div>
+                    </div>
+                </div>
 
-<footer>
- <div class="wrap footergrid">
-  <div><h3 id="storeFooter">VIP X STORE</h3><p>Premium digital store with fast delivery and customer support.</p><p>© 2026 Your Store. All rights reserved.</p></div>
-  <div><h3>Useful Links</h3><p><a href="#home">Home</a> · <a href="#android">Android</a> · <a href="#ios">iOS</a> · <a href="#proofs">Proofs</a></p><p>Terms · Privacy · Refund Policy · Disclaimer</p></div>
- </div>
-</footer>
+                <!-- Hidden Real HTML5 Audio Element (Placeholder URL) -->
+                <!-- Replace 'VOICE_MESSAGE_AUDIO_URL_HERE' with your actual MP3/AAC Audio file link -->
+                <audio id="hunter-voice-audio" preload="metadata" ontimeupdate="updateAudioProgress()" onended="audioEnded()">
+                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </section>
 
-<!-- CHECKOUT / PAYMENT UI -->
-<div class="modal" id="checkoutModal">
- <div class="sheet">
-  <button class="close" onclick="closeCheckout()">×</button>
-  <h2 id="checkoutTitle">Checkout</h2>
-  <div class="steps"><i class="step active"></i><i class="step active"></i><i class="step"></i></div>
+        <!-- PRODUCT PRICING SECTION -->
+        <section id="pricing-section" class="py-8 px-4 max-w-5xl mx-auto">
+            <div class="text-center mb-10">
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-400 bg-brand-500/10 px-3 py-1 rounded-full border border-brand-500/20">
+                    Select Your Platform
+                </span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-3">
+                    Choose Your Access Package
+                </h2>
+                <p class="text-slate-400 text-sm mt-2">Instant digital delivery after verification</p>
+            </div>
 
-  <div id="checkoutForm">
-   <div class="order"><span>Product</span><b id="productName"></b></div>
-   <div class="order"><span>Total</span><b id="productPrice"></b></div>
-   <h3>Customer Details</h3>
-   <input id="customerName" placeholder="Full name">
-   <input id="customerContact" placeholder="Email or phone">
-   <button class="btn" onclick="showPayment()">Continue to Payment</button>
-   <p class="note">This is a frontend checkout. Connect a real payment gateway and server-side verification before accepting real orders.</p>
-  </div>
+            <!-- Two Main Offerings Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                
+                <!-- Product 1: Android APK -->
+                <div class="glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between relative border border-brand-500/40 hover:border-brand-500 transition-all duration-300 shadow-glow-orange group">
+                    <div class="absolute top-4 right-4 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold px-3 py-1 rounded-full">
+                        7 Days Access
+                    </div>
 
-  <div id="paymentForm" style="display:none">
-   <h3>Payment</h3>
-   <div class="paybox">
-    <b>UPI PAYMENT</b>
-    <p class="note">Replace <b>YOUR-UPI-ID@upi</b> below with your own verified UPI ID or connect Razorpay Checkout.</p>
-    <div class="qr" aria-label="Demo QR placeholder"></div>
-    <button class="btn" onclick="payViaUpi()">Pay via UPI</button>
-   </div>
-   <button class="btn secondary" onclick="showCheckout()">← Back</button>
-  </div>
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-slate-800 flex items-center justify-center text-brand-500 text-3xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-brands fa-android"></i>
+                        </div>
+                        <h3 class="text-2xl font-black text-white">Android APK Package</h3>
+                        <p class="text-xs text-slate-400 mt-1">Full 7 Days Premium Access with Full Kit</p>
+                        
+                        <!-- Price Tag -->
+                        <div class="my-6 flex items-baseline space-x-2">
+                            <span class="text-4xl font-black text-white">₹499</span>
+                            <span class="text-slate-500 line-through text-lg font-medium">₹1,499</span>
+                            <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">66% OFF</span>
+                        </div>
 
-  <div id="successForm" class="success" style="display:none">
-   <div class="check">✓</div>
-   <h2>Order Created</h2>
-   <p class="note">Your order has been created locally for this demo. Do not show a payment-success message until your payment gateway confirms the transaction on your server.</p>
-   <button class="btn" onclick="closeCheckout()">Done</button>
-  </div>
- </div>
-</div>
+                        <!-- Features list -->
+                        <ul class="space-y-3 text-sm text-slate-300 mb-8">
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-circle-check text-brand-500 mr-2.5 text-base"></i>
+                                <span>Complete Android APK Files</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-circle-check text-brand-500 mr-2.5 text-base"></i>
+                                <span>7 Days Full Access License</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-circle-check text-brand-500 mr-2.5 text-base"></i>
+                                <span>Step-by-Step Installation Video</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-circle-check text-brand-500 mr-2.5 text-base"></i>
+                                <span>VIP Telegram Group Invitation</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-circle-check text-brand-500 mr-2.5 text-base"></i>
+                                <span>24/7 Setup Assistance</span>
+                            </li>
+                        </ul>
+                    </div>
 
-<script>
-/* =========================================================
-   EASY EDIT SETTINGS
-   Change ONLY the values inside this CONFIG block.
-   ========================================================= */
-const CONFIG = {
-  storeName: 'hunter panle.apk',
+                    <button onclick="openPaymentModal('Android APK (7 Days)', 499)" class="w-full py-4 rounded-xl btn-orange-glow text-white font-extrabold text-base tracking-wide flex items-center justify-center space-x-2">
+                        <span>BUY NOW - ₹499</span>
+                        <i class="fa-solid fa-arrow-right text-sm"></i>
+                    </button>
+                </div>
 
-  voiceUrl: 'https://res.cloudinary.com/anx7fwf6/video/upload/v1789241509/ElevenLabs_2026_09_12T19_23_43_Bunty_Punchy__Crisp_and_Reel_King.mp3_1.mp3',
+                <!-- Product 2: iPhone APK / iOS Setup -->
+                <div class="glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between relative border border-slate-700 hover:border-brand-500 transition-all duration-300 shadow-xl group">
+                    <div class="absolute top-4 right-4 bg-brand-500/20 text-brand-400 border border-brand-500/30 text-xs font-bold px-3 py-1 rounded-full">
+                        iOS Special Access
+                    </div>
 
-  android: {
-    name: 'Android panle',
-    price: 1,
-    period: '7 days',
-    description: 'Access plan for Android users. Replace this description with your own legal product information.'
-  },
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-slate-800 flex items-center justify-center text-white text-3xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-brands fa-apple"></i>
+                        </div>
+                        <h3 class="text-2xl font-black text-white">iPhone / iOS Package</h3>
+                        <p class="text-xs text-slate-400 mt-1">Exclusive iOS Configuration & Setup Course</p>
 
-  ios: {
-    name: 'iPhone Panle',
-    price: 499,
-    period: '7 days',
-    description: 'Access plan for iPhone users. Replace this description with your own legal product information.'
-  },
+                        <!-- Price Tag -->
+                        <div class="my-6 flex items-baseline space-x-2">
+                            <span class="text-4xl font-black text-white">₹499</span>
+                            <span class="text-slate-500 line-through text-lg font-medium">₹1,999</span>
+                            <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">75% OFF</span>
+                        </div>
 
-  upiId: '7067729120@ptaxis',
+                        <!-- Features list -->
+                        <ul class="space-y-3 text-sm text-slate-300 mb-8">
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-circle-check text-brand-500 mr-2.5 text-base"></i>
+                                <span>iPhone Supported Configuration</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-circle-check text-brand-500 mr-2.5 text-base"></i>
+                                <span>iOS Installation Direct Link</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-circle-check text-brand-500 mr-2.5 text-base"></i>
+                                <span>Full HD Course Video Tutorials</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-circle-check text-brand-500 mr-2.5 text-base"></i>
+                                <span>Anti-Ban Setup Strategy</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-circle-check text-brand-500 mr-2.5 text-base"></i>
+                                <span>Direct Support on Telegram</span>
+                            </li>
+                        </ul>
+                    </div>
 
-  // Accent color
-  orange: '#ff8a00'
-};
-/* ========================================================= */
-</script>
+                    <button onclick="openPaymentModal('iPhone / iOS Package', 499)" class="w-full py-4 rounded-xl btn-orange-glow text-white font-extrabold text-base tracking-wide flex items-center justify-center space-x-2">
+                        <span>BUY NOW - ₹499</span>
+                        <i class="fa-solid fa-arrow-right text-sm"></i>
+                    </button>
+                </div>
 
-<script>
-let selectedProduct='',selectedPrice=0;
-const modal=document.getElementById('checkoutModal');
-function openCheckout(name,price){
- selectedProduct=name;selectedPrice=price;
- document.getElementById('productName').textContent=name;
- document.getElementById('productPrice').textContent='₹'+price;
- showCheckout();modal.classList.add('show');
-}
-function closeCheckout(){modal.classList.remove('show')}
-function showCheckout(){
- document.getElementById('checkoutForm').style.display='block';
- document.getElementById('paymentForm').style.display='none';
- document.getElementById('successForm').style.display='none';
-}
-function showPayment(){
- const n=document.getElementById('customerName').value.trim();
- const c=document.getElementById('customerContact').value.trim();
- if(!n||!c){alert('Please enter your name and contact.');return}
- document.getElementById('checkoutForm').style.display='none';
- document.getElementById('paymentForm').style.display='block';
-}
-function payViaUpi(){
- // Replace this demo UPI ID with your own verified UPI ID.
- const upi=CONFIG.upiId;
- const url='upi://pay?pa='+encodeURIComponent(upi)+'&pn='+encodeURIComponent(CONFIG.storeName)+'&am='+selectedPrice+'&cu=INR';
- window.location.href=url;
- // IMPORTANT: returning from a UPI app is NOT proof of payment.
- // Verify the transaction through your payment gateway/server before fulfilling an order.
-}
-function toggleVoice(btn){
- const a=document.getElementById('voiceAudio');
- // Add your own legal audio URL here:
- if(!a.src){alert('Add your own voice-note URL in the HTML first.');return}
- if(a.paused){a.play();btn.textContent='❚❚'}else{a.pause();btn.textContent='▶'}
-}
+            </div>
+        </section>
 
-function applyConfig(){
-  document.documentElement.style.setProperty('--orange', CONFIG.orange || '#ff8a00');
-  // Voice URL
-  const audio = document.getElementById('voiceAudio');
-  if(CONFIG.voiceUrl && CONFIG.voiceUrl !== 'PASTE-YOUR-VOICE-URL-HERE'){
-    audio.src = CONFIG.voiceUrl;
-  }
+        <!-- DEMO VIDEO SECTION -->
+        <section class="py-12 px-4 max-w-4xl mx-auto">
+            <div class="glass-card p-6 sm:p-8 rounded-3xl border border-slate-800 text-center relative">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-xs font-semibold mb-3">
+                    <i class="fa-solid fa-circle-play"></i>
+                    <span>Watch Before Buying</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-2">
+                    Full Course & Proof Demo Video
+                </h2>
+                <p class="text-slate-400 text-xs sm:text-sm mb-6 max-w-lg mx-auto">
+                    Watch this complete video to see how the setup works in real time on mobile devices.
+                </p>
 
-  // Store name
-  const logoParts = CONFIG.storeName.trim().split(/\s+/);
-  const logoLast = logoParts.pop() || '';
-  document.getElementById('storeLogo').innerHTML =
-    logoParts.join(' ') + (logoParts.length ? ' ' : '') + '<span>' + logoLast + '</span>';
-  document.getElementById('storeHero').textContent = CONFIG.storeName;
-  document.getElementById('storeFooter').textContent = CONFIG.storeName;
+                <!-- Responsive Video Player Box -->
+                <div class="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-900 border border-slate-700 shadow-2xl group">
+                    <!-- Video Element (Placeholder source provided) -->
+                    <!-- Replace 'DEMO_VIDEO_URL_HERE' with your real video MP4 link or YouTube iframe -->
+                    <video id="demo-video-player" class="w-full h-full object-cover" controls poster="https://placehold.co/1280x720/121824/ff6b00?text=Hunter+Bhai+Demo+Video+Preview">
+                        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
 
-  // Android
-  document.getElementById('androidName').textContent = CONFIG.android.name;
-  document.getElementById('androidPrice').textContent = CONFIG.android.price;
-  document.getElementById('androidPeriod').textContent = CONFIG.android.period;
-  document.getElementById('androidDescription').textContent = CONFIG.android.description;
+                    <!-- Play Overlay Button (Auto hides on HTML5 video play) -->
+                    <div id="video-overlay" onclick="playDemoVideo()" class="absolute inset-0 bg-slate-950/60 backdrop-blur-xs flex flex-col items-center justify-center cursor-pointer group-hover:bg-slate-950/40 transition">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-brand-500 text-white flex items-center justify-center text-2xl sm:text-3xl shadow-glow-orange-strong transform group-hover:scale-110 transition duration-300">
+                            <i class="fa-solid fa-play ml-1"></i>
+                        </div>
+                        <span class="text-white text-xs sm:text-sm font-bold mt-4 tracking-wide bg-slate-900/80 px-4 py-1.5 rounded-full border border-slate-700">
+                            Click to Play Demo Video
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  // iOS
-  document.getElementById('iosName').textContent = CONFIG.ios.name;
-  document.getElementById('iosPrice').textContent = CONFIG.ios.price;
-  document.getElementById('iosPeriod').textContent = CONFIG.ios.period;
-  document.getElementById('iosDescription').textContent = CONFIG.ios.description;
-}
+        <!-- TRUST BADGES SECTION -->
+        <section class="py-6 px-4 max-w-4xl mx-auto border-t border-slate-800/80">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div class="p-4 rounded-xl glass-card">
+                    <i class="fa-solid fa-bolt text-brand-500 text-2xl mb-2"></i>
+                    <h4 class="text-xs font-bold text-white">Instant Access</h4>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Automated download link</p>
+                </div>
+                <div class="p-4 rounded-xl glass-card">
+                    <i class="fa-solid fa-shield-halved text-brand-500 text-2xl mb-2"></i>
+                    <h4 class="text-xs font-bold text-white">100% Safe</h4>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Verified & virus free</p>
+                </div>
+                <div class="p-4 rounded-xl glass-card">
+                    <i class="fa-solid fa-headset text-brand-500 text-2xl mb-2"></i>
+                    <h4 class="text-xs font-bold text-white">Direct Support</h4>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Hunter Bhai Telegram</p>
+                </div>
+                <div class="p-4 rounded-xl glass-card">
+                    <i class="fa-solid fa-mobile-screen text-brand-500 text-2xl mb-2"></i>
+                    <h4 class="text-xs font-bold text-white">All Devices</h4>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Android & iOS support</p>
+                </div>
+            </div>
+        </section>
 
-applyConfig();
+    </main>
 
-document.getElementById('checkoutModal').addEventListener('click',e=>{if(e.target===modal)closeCheckout()});
-</script>
+    <!-- PAYMENT MODAL / DEDICATED PAYMENT VIEW -->
+    <div id="payment-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
+        <div class="glass-card w-full max-w-md rounded-3xl border border-brand-500/40 p-6 sm:p-8 relative shadow-glow-orange my-8">
+            
+            <!-- Modal Close Button -->
+            <button onclick="closePaymentModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <span class="text-xs font-bold text-brand-400 uppercase tracking-widest">Complete Your Order</span>
+                <h3 id="modal-product-title" class="text-xl font-extrabold text-white mt-1">Selected Product</h3>
+                <div class="inline-flex items-center space-x-1 mt-2 bg-brand-500/10 px-3 py-1 rounded-full border border-brand-500/30">
+                    <span class="text-xs text-slate-300">Total Payable:</span>
+                    <span id="modal-product-price" class="text-lg font-black text-brand-400">₹499</span>
+                </div>
+            </div>
+
+            <!-- Customer Details Form -->
+            <form id="payment-form" onsubmit="handlePaymentSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Your Full Name *</label>
+                    <input type="text" id="cust-name" required placeholder="Enter your name" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Phone / WhatsApp Number *</label>
+                    <input type="tel" id="cust-phone" required pattern="[0-9]{10}" placeholder="Enter 10 digit mobile number" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 text-sm">
+                </div>
+
+                <!-- QR CODE & PAYMENT INSTRUCTIONS SECTION -->
+                <div class="pt-2 border-t border-slate-800 text-center">
+                    <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Scan QR Code to Pay</label>
+                    
+                    <!-- Dynamic QR Display Container -->
+                    <div class="w-48 h-48 mx-auto bg-white p-3 rounded-2xl shadow-lg flex items-center justify-center relative border-2 border-brand-500">
+                        <!-- 
+                          DYNAMIC QR CODE IMAGE PLACEHOLDER 
+                          Replace 'YOUR_UPI_ID@upi' in the src below with your actual UPI ID 
+                        -->
+                        <img id="qr-image" 
+                             src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=YOUR_UPI_ID@upi%26pn=Hunter%20Bhai%26am=499%26cu=INR" 
+                             alt="Payment QR Code" 
+                             class="w-full h-full object-contain">
+                    </div>
+
+                    <p class="text-[12px] text-slate-300 mt-3 leading-snug px-2">
+                        💡 <strong>Instruction:</strong> Take a screenshot of the QR code to pay via PhonePe / Paytm / GooglePay, or tap the button below to pay directly.
+                    </p>
+                </div>
+
+                <!-- DIRECT PAY VIA UPI BUTTON -->
+                <!-- Replace 'YOUR_UPI_ID@upi' with your actual UPI ID inside the code -->
+                <a id="direct-upi-btn" 
+                   href="upi://pay?pa=YOUR_UPI_ID@upi&pn=Hunter%20Bhai&am=499&cu=INR" 
+                   onclick="trackUpiClick()" 
+                   class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-sm tracking-wide flex items-center justify-center space-x-2 transition shadow-lg">
+                    <i class="fa-solid fa-mobile-screen-button text-base"></i>
+                    <span>PAY VIA UPI APP DIRECTLY</span>
+                </a>
+
+                <!-- UTR / TRANSACTION CONFIRMATION -->
+                <div class="pt-3 border-t border-slate-800 space-y-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Enter Transaction ID / UTR No. *</label>
+                        <input type="text" id="cust-utr" required placeholder="12-digit UPI Transaction UTR" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 text-sm">
+                    </div>
+
+                    <button type="submit" class="w-full py-4 rounded-xl btn-orange-glow text-white font-black text-sm uppercase tracking-wider">
+                        Confirm & Request Download Access
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- SUCCESS NOTIFICATION MODAL -->
+    <div id="success-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
+        <div class="glass-card w-full max-w-sm rounded-3xl border border-emerald-500/50 p-6 text-center space-y-4">
+            <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center text-3xl mx-auto border border-emerald-500/40">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="text-xl font-extrabold text-white">Payment Submitted!</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                Thank you! Your transaction details have been received. Hunter Bhai team will verify and activate your access within 5-15 minutes.
+            </p>
+            <div class="pt-2">
+                <a href="https://t.me/your_telegram_channel" target="_blank" class="w-full py-3 rounded-xl bg-brand-500 text-white font-bold text-sm block hover:bg-brand-600 transition shadow-glow-orange">
+                    Join Telegram Support Channel
+                </a>
+            </div>
+            <button onclick="closeSuccessModal()" class="text-xs text-slate-400 hover:text-white underline pt-2">
+                Close Window
+            </button>
+        </div>
+    </div>
+
+    <!-- LEGAL MODAL (Educational Purpose, Privacy Policy, Terms) -->
+    <div id="legal-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+        <div class="glass-card w-full max-w-2xl rounded-3xl border border-slate-700 p-6 sm:p-8 relative max-h-[80vh] flex flex-col">
+            <button onclick="closeLegalModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 id="legal-modal-title" class="text-xl font-bold text-white mb-4">Legal Information</h3>
+            <div id="legal-modal-content" class="text-xs sm:text-sm text-slate-300 space-y-3 overflow-y-auto pr-2 leading-relaxed">
+                <!-- Content injected dynamically via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER SECTION -->
+    <footer class="glass-card border-t border-slate-800 mt-16 py-10 px-4 text-center">
+        <div class="max-w-4xl mx-auto space-y-6">
+            <div class="flex items-center justify-center space-x-2">
+                <div class="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center text-white font-black text-sm">
+                    HB
+                </div>
+                <span class="text-lg font-bold text-white uppercase tracking-wider">Hunter Bhai</span>
+            </div>
+
+            <!-- Disclaimer Notice -->
+            <p class="text-xs text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                <strong>Educational Purpose Disclaimer:</strong> All content, APKs, and guides provided on Hunter Bhai website are strictly intended for educational and testing purposes only. We do not promote illegal activities or unauthorized modifications.
+            </p>
+
+            <!-- Links -->
+            <div class="flex flex-wrap justify-center gap-4 text-xs font-semibold text-slate-300">
+                <button onclick="openLegalModal('educational')" class="hover:text-brand-400 transition">Educational Disclaimer</button>
+                <span class="text-slate-700">•</span>
+                <button onclick="openLegalModal('privacy')" class="hover:text-brand-400 transition">Privacy Policy</button>
+                <span class="text-slate-700">•</span>
+                <button onclick="openLegalModal('terms')" class="hover:text-brand-400 transition">Terms & Conditions</button>
+                <span class="text-slate-700">•</span>
+                <a href="https://t.me/your_telegram_channel" target="_blank" class="hover:text-brand-400 transition"><i class="fa-brands fa-telegram mr-1"></i> Telegram Support</a>
+            </div>
+
+            <p class="text-[11px] text-slate-400">
+                © <span id="year-span"></span> Hunter Bhai. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT CONTROLLERS -->
+    <script>
+      // Automatically set current year in footer
+      document.getElementById('year-span').innerText = new Date().getFullYear();
+
+      // ==========================================
+      // AUDIO PLAYER CONTROLLER
+      // ==========================================
+      const audio = document.getElementById('hunter-voice-audio');
+      const audioBtn = document.getElementById('audio-toggle-btn');
+      const audioIcon = document.getElementById('audio-icon');
+      const waveContainer = document.getElementById('waveform-container');
+      const currentTimeSpan = document.getElementById('audio-current-time');
+      const durationSpan = document.getElementById('audio-duration');
+
+      function toggleAudio() {
+        if (audio.paused) {
+          audio.play().catch(err => console.log('Audio play error:', err));
+          audioIcon.className = 'fa-solid fa-pause';
+          waveContainer.classList.remove('paused');
+        } else {
+          audio.pause();
+          audioIcon.className = 'fa-solid fa-play ml-0.5';
+          waveContainer.classList.add('paused');
+        }
+      }
+
+      function updateAudioProgress() {
+        if (!isNaN(audio.duration)) {
+          const cur = Math.floor(audio.currentTime);
+          const dur = Math.floor(audio.duration);
+          currentTimeSpan.innerText = formatTime(cur);
+          durationSpan.innerText = formatTime(dur);
+        }
+      }
+
+      function audioEnded() {
+        audioIcon.className = 'fa-solid fa-play ml-0.5';
+        waveContainer.classList.add('paused');
+        audio.currentTime = 0;
+      }
+
+      function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+      }
+
+      // ==========================================
+      // DEMO VIDEO CONTROLLER
+      // ==========================================
+      const video = document.getElementById('demo-video-player');
+      const videoOverlay = document.getElementById('video-overlay');
+
+      function playDemoVideo() {
+        videoOverlay.style.display = 'none';
+        video.play();
+      }
+
+      video.addEventListener('pause', () => {
+        if (video.currentTime < video.duration) {
+          videoOverlay.style.display = 'flex';
+        }
+      });
+
+      // ==========================================
+      // PAYMENT MODAL CONTROLLER & META PIXEL EVENTS
+      // ==========================================
+      let selectedPackage = '';
+      let selectedPrice = 499;
+      
+      // EDIT YOUR UPI ID HERE:
+      const YOUR_UPI_ID = "YOUR_UPI_ID@upi"; 
+
+      function openPaymentModal(packageName, price) {
+        selectedPackage = packageName;
+        selectedPrice = price;
+
+        document.getElementById('modal-product-title').innerText = packageName;
+        document.getElementById('modal-product-price').innerText = `₹${price}`;
+
+        // Update Dynamic QR URL
+        const upiString = `upi://pay?pa=${YOUR_UPI_ID}&pn=Hunter%20Bhai&am=${price}&cu=INR`;
+        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiString)}`;
+        document.getElementById('qr-image').src = qrUrl;
+
+        // Update Direct UPI Link
+        document.getElementById('direct-upi-btn').href = upiString;
+
+        // Open Modal
+        document.getElementById('payment-modal').classList.remove('hidden');
+
+        // META PIXEL EVENT: InitiateCheckout
+        if (typeof fbq === 'function') {
+          fbq('track', 'InitiateCheckout', {
+            content_name: packageName,
+            value: price,
+            currency: 'INR'
+          });
+        }
+      }
+
+      function closePaymentModal() {
+        document.getElementById('payment-modal').classList.add('hidden');
+      }
+
+      function trackUpiClick() {
+        // Track UPI link tap event
+        if (typeof fbq === 'function') {
+          fbq('trackCustom', 'ClickPayViaUPI', {
+            product: selectedPackage,
+            value: selectedPrice
+          });
+        }
+      }
+
+      function handlePaymentSubmit(e) {
+        e.preventDefault();
+        const name = document.getElementById('cust-name').value;
+        const phone = document.getElementById('cust-phone').value;
+        const utr = document.getElementById('cust-utr').value;
+
+        if(!name || !phone || !utr) {
+          alert("Please fill all required details!");
+          return;
+        }
+
+        // META PIXEL EVENT: Lead / Purchase Intent
+        if (typeof fbq === 'function') {
+          fbq('track', 'Lead', {
+            content_name: selectedPackage,
+            value: selectedPrice,
+            currency: 'INR'
+          });
+        }
+
+        // Close payment modal & show success popup
+        closePaymentModal();
+        document.getElementById('success-modal').classList.remove('hidden');
+        document.getElementById('payment-form').reset();
+      }
+
+      function closeSuccessModal() {
+        document.getElementById('success-modal').classList.add('hidden');
+      }
+
+      // ==========================================
+      // LEGAL MODALS CONTROLLER
+      // ==========================================
+      const legalContents = {
+        educational: `
+          <h4 class="font-bold text-brand-400 text-base mb-2">Educational Purpose & Fair Use Disclaimer</h4>
+          <p>The materials, tutorials, APK configurations, and videos provided on Hunter Bhai platform are strictly for educational, informational, and software testing purposes.</p>
+          <p>We do not encourage, support, or promote any unauthorized bypasses, copyright infringements, or unethical activities. Users are solely responsible for compliance with their local laws and terms of service of third-party platforms.</p>
+        `,
+        privacy: `
+          <h4 class="font-bold text-brand-400 text-base mb-2">Privacy Policy</h4>
+          <p>Your privacy is important to us. We only collect basic contact information (such as your Name and Mobile Number) when you request access to Hunter Bhai course packages.</p>
+          <p>We do not store your banking passwords or payment PINs. All payments are processed directly through your preferred UPI application or bank interface.</p>
+        `,
+        terms: `
+          <h4 class="font-bold text-brand-400 text-base mb-2">Terms & Conditions</h4>
+          <p>By placing an order for Hunter Bhai digital access packages (Android APK / iOS setup guide), you agree to the following terms:</p>
+          <ul class="list-disc ml-5 space-y-1">
+            <li>Digital products are non-refundable once the course material or APK is dispatched.</li>
+            <li>Access privileges are granted for the specified duration (e.g., 7 days for specified packages).</li>
+            <li>Re-selling or public distribution of Hunter Bhai proprietary files is strictly prohibited.</li>
+          </ul>
+        `
+      };
+
+      function openLegalModal(type) {
+        const modal = document.getElementById('legal-modal');
+        const title = document.getElementById('legal-modal-title');
+        const content = document.getElementById('legal-modal-content');
+
+        if(type === 'educational') {
+          title.innerText = "Educational Disclaimer";
+          content.innerHTML = legalContents.educational;
+        } else if(type === 'privacy') {
+          title.innerText = "Privacy Policy";
+          content.innerHTML = legalContents.privacy;
+        } else if(type === 'terms') {
+          title.innerText = "Terms & Conditions";
+          content.innerHTML = legalContents.terms;
+        }
+
+        modal.classList.remove('hidden');
+      }
+
+      function closeLegalModal() {
+        document.getElementById('legal-modal').classList.add('hidden');
+      }
+    </script>
 </body>
 </html>
