@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#080b12">
-<title>Hunter-bhai</title>
+<title>VIPX Store — Premium Shop</title>
 <style>
 :root{
   --bg:#070a10;--card:#0e131c;--card2:#111925;--text:#f6f7fb;--muted:#8e9aaa;
@@ -60,13 +60,253 @@ repeating-conic-gradient(#111 0 25%,#fff 0 50%) 50%/16px 16px}
  .navlinks{display:none}.stats{grid-template-columns:repeat(2,1fr)}
  .grid{grid-template-columns:1fr}.hero{padding-top:40px}.footergrid{grid-template-columns:1fr}
 }
+
+/* ================= ANIMATION + ORANGE ACCENT ================= */
+:root{
+  --orange:#ff8a00;
+  --orange2:#ffb52e;
+}
+
+/* Animated background glow */
+body{
+  overflow-x:hidden;
+  position:relative;
+}
+body::before,
+body::after{
+  content:"";
+  position:fixed;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:-1;
+  filter:blur(55px);
+  opacity:.20;
+  animation:floatGlow 9s ease-in-out infinite alternate;
+}
+body::before{
+  background:var(--orange);
+  top:10%;
+  left:-110px;
+}
+body::after{
+  background:var(--cyan);
+  right:-120px;
+  bottom:8%;
+  animation-delay:-4s;
+}
+@keyframes floatGlow{
+  0%{transform:translate3d(0,0,0) scale(.85)}
+  100%{transform:translate3d(80px,45px,0) scale(1.18)}
+}
+
+/* Orange touches */
+.badge{
+  border-color:rgba(255,138,0,.45);
+  color:#ffd08a;
+  background:linear-gradient(90deg,rgba(255,138,0,.12),rgba(45,125,255,.10));
+  animation:badgePulse 2.8s ease-in-out infinite;
+}
+@keyframes badgePulse{
+  0%,100%{box-shadow:0 0 0 rgba(255,138,0,0)}
+  50%{box-shadow:0 0 22px rgba(255,138,0,.22)}
+}
+.logo span{
+  color:var(--orange);
+  text-shadow:0 0 14px rgba(255,138,0,.55);
+}
+.hero h1 span{
+  background:linear-gradient(90deg,#fff,#52c9ff,var(--orange2),#fff);
+  background-size:250% auto;
+  animation:textFlow 5s linear infinite;
+}
+@keyframes textFlow{
+  to{background-position:250% center}
+}
+
+/* Section entrance */
+.hero,
+.stats,
+.grid,
+#proofs,
+#gameplay,
+footer{
+  animation:sectionRise .75s ease both;
+}
+@keyframes sectionRise{
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Voice card */
+.voice{
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 0 0 rgba(255,138,0,0);
+  animation:voiceGlow 3.5s ease-in-out infinite;
+}
+.voice::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:20px;
+  padding:1px;
+  background:linear-gradient(90deg,transparent,var(--orange),var(--cyan),transparent);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  opacity:.55;
+  animation:borderMove 4s linear infinite;
+}
+@keyframes borderMove{
+  to{transform:rotate(360deg)}
+}
+@keyframes voiceGlow{
+  0%,100%{box-shadow:0 0 0 rgba(255,138,0,0)}
+  50%{box-shadow:0 0 30px rgba(255,138,0,.12)}
+}
+.play{
+  background:linear-gradient(135deg,var(--blue),var(--orange));
+  box-shadow:0 0 0 rgba(255,138,0,0);
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.play:hover{
+  transform:scale(1.10) rotate(5deg);
+  box-shadow:0 0 25px rgba(255,138,0,.45);
+}
+.progress i{
+  background:linear-gradient(90deg,var(--blue),var(--cyan),var(--orange));
+  background-size:200% 100%;
+  animation:progressFlow 2.5s linear infinite;
+}
+@keyframes progressFlow{
+  to{background-position:200% 0}
+}
+
+/* Stats hover */
+.stat{
+  transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;
+}
+.stat:hover{
+  transform:translateY(-6px);
+  border-color:rgba(255,138,0,.45);
+  box-shadow:0 12px 30px rgba(255,138,0,.10);
+}
+.stat b{
+  background:linear-gradient(90deg,#fff,var(--orange2));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+/* Product cards */
+.card{
+  position:relative;
+  overflow:hidden;
+  transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease;
+}
+.card::after{
+  content:"";
+  position:absolute;
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  background:var(--orange);
+  filter:blur(65px);
+  opacity:0;
+  right:-65px;
+  top:-65px;
+  transition:opacity .35s ease;
+  pointer-events:none;
+}
+.card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(255,138,0,.42);
+  box-shadow:0 22px 55px rgba(0,0,0,.45),0 0 28px rgba(255,138,0,.08);
+}
+.card:hover::after{opacity:.14}
+.tag{
+  color:#ffc15a;
+}
+
+/* Buttons: orange/blue animated shine */
+.btn{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(100deg,var(--blue),#4a9cff,var(--orange));
+  background-size:220% 100%;
+  animation:buttonGradient 4s ease infinite;
+  transition:transform .2s ease,box-shadow .25s ease;
+}
+.btn::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-80%;
+  width:45%;
+  height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
+  transform:skewX(-20deg);
+  animation:buttonShine 3.2s ease-in-out infinite;
+}
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 28px rgba(255,138,0,.20);
+}
+@keyframes buttonGradient{
+  0%,100%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+}
+@keyframes buttonShine{
+  0%,45%{left:-80%}
+  70%,100%{left:135%}
+}
+
+/* Feature chips */
+.features div{
+  transition:transform .25s ease,border-color .25s ease,background .25s ease;
+  border:1px solid transparent;
+}
+.features div:hover{
+  transform:translateX(4px);
+  border-color:rgba(255,138,0,.25);
+  background:#101722;
+}
+
+/* Modal animation */
+.modal.show .sheet{
+  animation:sheetUp .4s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes sheetUp{
+  from{opacity:0;transform:translateY(35px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.close{
+  transition:transform .25s ease,background .25s ease;
+}
+.close:hover{
+  transform:rotate(90deg);
+  background:rgba(255,138,0,.20);
+}
+
+/* Accessibility: respect reduced-motion preference */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+
 </style>
 </head>
 <body>
 
 <header>
  <div class="wrap nav">
-  <div class="logo">ALL <span>PANLE</span> AVAILABLE</div>
+  <div class="logo" id="storeLogo">VIP <span>X</span> STORE</div>
   <nav class="navlinks"><a href="#home">Home</a><a href="#android">Android</a><a href="#ios">iOS</a><a href="#proofs">Proofs</a><a href="#gameplay">Gameplay</a></nav>
  </div>
 </header>
@@ -75,13 +315,14 @@ repeating-conic-gradient(#111 0 25%,#fff 0 50%) 50%/16px 16px}
  <div class="wrap">
   <section class="hero">
    <div class="badge">⚡ OFFICIAL PREMIUM STORE</div>
-   <h1>LISTEN TO THE <span>VOICE👇</span></h1>
+   <h1 id="storeHero">VIP X <span>STORE</span></h1>
    <p>Premium digital products with a clean setup, fast delivery and direct customer support.</p>
 
    <div class="voice">
     <small>VOICE NOTE GUIDE</small>
     <div class="player"><button class="play" onclick="toggleVoice(this)">▶</button><div class="progress"><i id="bar"></i></div><span id="time">00:00</span></div>
-    <audio id="voiceAudio" preload="none"></audio>
+    <!-- Voice URL is controlled from CONFIG.voiceUrl near the bottom. -->
+     <audio id="voiceAudio" preload="none"></audio>
    </div>
   </section>
 
@@ -96,21 +337,21 @@ repeating-conic-gradient(#111 0 25%,#fff 0 50%) 50%/16px 16px}
    <div class="section-title"><h2>Choose Your Product</h2><p>Select a plan to continue to checkout.</p></div>
    <div class="grid">
     <article class="card">
-     <span class="tag">Android •panle</span>
-     <h2>Android panle</h2>
-     <p>Access plan for Android users. Replace this description with your own legal product information.</p>
+     <span class="tag">POPULAR • ANDROID</span>
+     <h2 id="androidName">Android Premium</h2>
+     <p id="androidDescription">Access plan for Android users. Replace this description with your own legal product information.</p>
      <div class="features"><div>✓ Instant access</div><div>✓ Direct support</div><div>✓ Simple setup</div><div>✓ Secure checkout</div></div>
-     <div class="price">₹499 <small>/ 7 days</small></div>
-     <button class="btn" onclick="openCheckout('Android Premium',35)">Get Access</button>
+     <div class="price">₹<span id="androidPrice">35</span> <small>/ <span id="androidPeriod">7 days</span></small></div>
+     <button class="btn" onclick="openCheckout(CONFIG.android.name, CONFIG.android.price)">Get Access</button>
     </article>
 
     <article class="card" id="ios">
-     <span class="tag">iOS • panle</span>
-     <h2>iPhone Panle</h2>
-     <p>Access plan for iPhone users. Replace this description with your own legal product information.</p>
+     <span class="tag">POPULAR • iOS</span>
+     <h2 id="iosName">iPhone Premium</h2>
+     <p id="iosDescription">Access plan for iPhone users. Replace this description with your own legal product information.</p>
      <div class="features"><div>✓ Instant access</div><div>✓ Direct support</div><div>✓ Simple setup</div><div>✓ Secure checkout</div></div>
-     <div class="price">₹499 <small>/ 7 days</small></div>
-     <button class="btn" onclick="openCheckout('iPhone Premium',35)">Get Access</button>
+     <div class="price">₹<span id="iosPrice">35</span> <small>/ <span id="iosPeriod">7 days</span></small></div>
+     <button class="btn" onclick="openCheckout(CONFIG.ios.name, CONFIG.ios.price)">Get Access</button>
     </article>
    </div>
   </section>
@@ -132,7 +373,7 @@ repeating-conic-gradient(#111 0 25%,#fff 0 50%) 50%/16px 16px}
 
 <footer>
  <div class="wrap footergrid">
-  <div><h3>HUNTER ALL PANLE</h3><p>Premium digital store with fast delivery and customer support.</p><p>© 2026 Your Store. All rights reserved.</p></div>
+  <div><h3 id="storeFooter">VIP X STORE</h3><p>Premium digital store with fast delivery and customer support.</p><p>© 2026 Your Store. All rights reserved.</p></div>
   <div><h3>Useful Links</h3><p><a href="#home">Home</a> · <a href="#android">Android</a> · <a href="#ios">iOS</a> · <a href="#proofs">Proofs</a></p><p>Terms · Privacy · Refund Policy · Disclaimer</p></div>
  </div>
 </footer>
@@ -175,6 +416,38 @@ repeating-conic-gradient(#111 0 25%,#fff 0 50%) 50%/16px 16px}
 </div>
 
 <script>
+/* =========================================================
+   EASY EDIT SETTINGS
+   Change ONLY the values inside this CONFIG block.
+   ========================================================= */
+const CONFIG = {
+  storeName: 'hunter panle.apk',
+
+  voiceUrl: 'https://res.cloudinary.com/anx7fwf6/video/upload/v1789241509/ElevenLabs_2026_09_12T19_23_43_Bunty_Punchy__Crisp_and_Reel_King.mp3_1.mp3',
+
+  android: {
+    name: 'Android panle',
+    price: 499,
+    period: '7 days',
+    description: 'Access plan for Android users. Replace this description with your own legal product information.'
+  },
+
+  ios: {
+    name: 'iPhone Panle',
+    price: 499,
+    period: '7 days',
+    description: 'Access plan for iPhone users. Replace this description with your own legal product information.'
+  },
+
+  upiId: '7067729120@ptaxis',
+
+  // Accent color
+  orange: '#ff8a00'
+};
+/* ========================================================= */
+</script>
+
+<script>
 let selectedProduct='',selectedPrice=0;
 const modal=document.getElementById('checkoutModal');
 function openCheckout(name,price){
@@ -198,8 +471,8 @@ function showPayment(){
 }
 function payViaUpi(){
  // Replace this demo UPI ID with your own verified UPI ID.
- const upi='7067729120@ptaxis';
- const url='upi://pay?pa='+encodeURIComponent(upi)+'&pn='+encodeURIComponent('YOUR STORE')+'&am='+selectedPrice+'&cu=INR';
+ const upi=CONFIG.upiId;
+ const url='upi://pay?pa='+encodeURIComponent(upi)+'&pn='+encodeURIComponent(CONFIG.storeName)+'&am='+selectedPrice+'&cu=INR';
  window.location.href=url;
  // IMPORTANT: returning from a UPI app is NOT proof of payment.
  // Verify the transaction through your payment gateway/server before fulfilling an order.
@@ -210,6 +483,38 @@ function toggleVoice(btn){
  if(!a.src){alert('Add your own voice-note URL in the HTML first.');return}
  if(a.paused){a.play();btn.textContent='❚❚'}else{a.pause();btn.textContent='▶'}
 }
+
+function applyConfig(){
+  document.documentElement.style.setProperty('--orange', CONFIG.orange || '#ff8a00');
+  // Voice URL
+  const audio = document.getElementById('voiceAudio');
+  if(CONFIG.voiceUrl && CONFIG.voiceUrl !== 'PASTE-YOUR-VOICE-URL-HERE'){
+    audio.src = CONFIG.voiceUrl;
+  }
+
+  // Store name
+  const logoParts = CONFIG.storeName.trim().split(/\s+/);
+  const logoLast = logoParts.pop() || '';
+  document.getElementById('storeLogo').innerHTML =
+    logoParts.join(' ') + (logoParts.length ? ' ' : '') + '<span>' + logoLast + '</span>';
+  document.getElementById('storeHero').textContent = CONFIG.storeName;
+  document.getElementById('storeFooter').textContent = CONFIG.storeName;
+
+  // Android
+  document.getElementById('androidName').textContent = CONFIG.android.name;
+  document.getElementById('androidPrice').textContent = CONFIG.android.price;
+  document.getElementById('androidPeriod').textContent = CONFIG.android.period;
+  document.getElementById('androidDescription').textContent = CONFIG.android.description;
+
+  // iOS
+  document.getElementById('iosName').textContent = CONFIG.ios.name;
+  document.getElementById('iosPrice').textContent = CONFIG.ios.price;
+  document.getElementById('iosPeriod').textContent = CONFIG.ios.period;
+  document.getElementById('iosDescription').textContent = CONFIG.ios.description;
+}
+
+applyConfig();
+
 document.getElementById('checkoutModal').addEventListener('click',e=>{if(e.target===modal)closeCheckout()});
 </script>
 </body>
