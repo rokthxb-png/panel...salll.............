@@ -8,7 +8,9 @@
     <!-- Meta Description for SEO -->
     <meta name="description" content="Get exclusive access to Hunter Bhai premium Android APKs and iOS packages. Instant delivery via UPI payment.">
 
-    <!-- META PIXEL (FACEBOOK PIXEL) SCRIPT -->
+    <!-- ================================================================ -->
+    <!-- 🟢 META PIXEL CODE START (আপনার পিক্সেল কোড এখানে বসাবেন)        -->
+    <!-- ================================================================ -->
     <script>
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -19,6 +21,10 @@
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
       
+      /* 
+         নিচের 'YOUR_PIXEL_ID' লেখাটি বদলে আপনার ১০ বা ১৫ ডিজিটের Pixel ID লিখে দিন।
+         যেমন: fbq('init', '123456789012345');
+      */
       fbq('init', 'YOUR_PIXEL_ID'); 
       fbq('track', 'PageView');
     </script>
@@ -26,6 +32,9 @@
       <img height="1" width="1" style="display:none" 
            src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"/>
     </noscript>
+    <!-- ================================================================ -->
+    <!-- 🔴 META PIXEL CODE END                                           -->
+    <!-- ================================================================ -->
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -557,6 +566,7 @@
 
         document.getElementById('payment-modal').classList.remove('hidden');
 
+        // Meta Pixel Event - InitiateCheckout
         if (typeof fbq === 'function') {
           fbq('track', 'InitiateCheckout', {
             content_name: packageName,
@@ -571,6 +581,7 @@
       }
 
       function trackUpiClick() {
+        // Meta Pixel Custom Event - ClickPayViaUPI
         if (typeof fbq === 'function') {
           fbq('trackCustom', 'ClickPayViaUPI', {
             product: selectedPackage,
